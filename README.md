@@ -30,7 +30,7 @@ $ conda install pandas -y
 ## Getting Started
 
 ~~~
-$ ./vprimer.py -c ini_yam_exam15.ini -t 10
+$ vprimer -c ini_yam_exam15.ini -t 20
 ~~~
 
 ## Usage

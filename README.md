@@ -7,6 +7,19 @@ vprimer
 
 ## Requirement
 
+~~~
+python 3.7
+pandas
+vcfpy
+pysam
+joblib
+Bio
+
+bcftools
+tabix
+blastn
+~~~
+
 ## Installation
 ~~~
 $ conda create -n run_vprimer python=3.7

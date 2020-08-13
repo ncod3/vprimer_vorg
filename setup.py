@@ -1,21 +1,21 @@
-"""Minimal setup file for vprimer project."""
+import setuptools
 
-from setuptools import setup, find_packages
+with open("README.md", "r") as fh:
+    long_description = fh.read()
 
-setup(
-    name='vprimer',
-    version='0.0.1',
-    license='GPL',
-    description='Vprimer',
-
-    author='satoshi-natsume',
+setuptools.setup(
+    name="vprimer",
+    version="0.0.1",
+    author="satoshi-natsume",
     author_email="s-natsume@ibrc.or.jp",
+    description="Vprimer",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
     url="https://github.com/ncod3/vprimer",
-
-    packages=find_packages(where='src'),
-    package_dir={'': 'src'},
-    entry_points={
-        'console_scripts': ['vprimer = src.main:main']
-        }
+    packages=setuptools.find_packages(),
+    license='GPL',
+    entry_points = {
+        'console_scripts': ['vprimer = vprimer.main:main']
+    },
+    python_requires='>=3.7',
 )
-

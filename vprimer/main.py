@@ -32,13 +32,16 @@ from vprimer.formtxt import FormTxt
 
 
 def main():
+
+    start = time.time()
     log.info('program started')
 
     # run
     vpr = VPrimer()
     vpr.run()
 
-    log.info('program finished')
+    log.info("program finished {}".format(
+        utl.elapsed_time(time.time(), start)))
 
 
 class VPrimer(object):

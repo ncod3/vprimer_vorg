@@ -11,9 +11,6 @@ from vprimer.conf import Conf
 from vprimer.ref_fasta import RefFasta
 from vprimer.outlist import OutList
 
-# https://qiita.com/mimitaro/items/3506a444f325c6f980b2
-import configparser
-# https://docs.python.org/ja/3/library/configparser.html
 
 ##########################################
 # allele status

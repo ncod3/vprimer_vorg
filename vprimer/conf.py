@@ -1,4 +1,3 @@
-#! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import sys
@@ -472,23 +471,19 @@ class Conf(object):
         #---------------------------------------------------
         # out_dir
         if glv.param.p.out_dir != None:
-            self.ini['global']['out_dir'] = glv.param.p.out_dir
+            self.out_dir = glv.param.p.out_dir
 
         # result out dir
-        self.out_dir =  "{}/{}".format(
-            self.cwd, self.ini['global']['out_dir'])
+        self.out_dir =  "{}/{}".format(self.cwd, self.out_dir)
 
         # logs dir under out dir
-        self.log_dir = "{}/{}".format(
-            self.out_dir, self.ini['global']['log_dir'])
+        self.log_dir = "{}/{}".format(self.out_dir, self.log_dir)
 
         # system reference dir
-        self.ref_dir = "{}/{}".format(
-            self.cwd, self.ini['global']['ref_dir'])
+        self.ref_dir = "{}/{}".format(self.cwd, self.ref_dir)
 
         # out_bak_dir
-        self.out_bak_dir =  "{}/{}".format(
-            self.out_dir, 'bak')
+        self.out_bak_dir =  "{}/{}".format(self.out_dir, 'bak')
 
         # make dir
         self._make_dir_tree()

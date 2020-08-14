@@ -29,7 +29,7 @@ class Param(object):
 
     def get_args(self):
 
-        parser = self._vprimer_options()
+        parser = self._get_options()
 
         if len(sys.argv) == 1:
             self.p = parser.parse_args(['-h'])
@@ -40,7 +40,7 @@ class Param(object):
 
         return self
 
-    def _vprimer_options(self):
+    def _get_options(self):
 
         # https://docs.python.org/ja/3/library/argparse.html
         parser = argparse.ArgumentParser(

@@ -105,8 +105,7 @@ class RefFasta(object):
                 ext, glv.conf.ref_fasta))
 
             # half of thread?
-            cmd1 = 'bgzip -cd -@ {} {} \
-                    | bgzip -@ {} > {}'.format(
+            cmd1 = 'bgzip -cd -@ {} {} | bgzip -@ {} > {}'.format(
                         glv.conf.parallele_full_thread,
                         glv.conf.ref_fasta_slink_system,
                         glv.conf.parallele_full_thread,
@@ -130,8 +129,7 @@ class RefFasta(object):
 
         else:
             log.info("{} not exist. do cmd={}".format(
-                glv.conf.ref_fasta,
-                cmd1))
+                glv.conf.ref_fasta, cmd1))
 
             utl.try_exec(cmd1)
  
@@ -265,8 +263,8 @@ class RefFasta(object):
             print("{},last_len={}".format(
                 chrom, len(glv.ref.refseq[last_chrom])))
 
-        elapsed_time = datetime.timedelta(seconds=(time.time() - start))
-        log.info("read refseq done. time:{0}".format(elapsed_time))
+        log.info("read refseq done {}".format(
+            utl.elapsed_time(time.time(), start)))
 
         # pickle
         with open(glv.conf.ref_fasta_pickle, 'wb') as f:

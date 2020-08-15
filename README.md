@@ -30,7 +30,11 @@ $ conda install pandas -y
 ## Getting Started
 
 ~~~
-$ vprimer -c ini_yam_exam15.ini -t 20
+If you use minimum cpu 2, it take only about 5 minutes.
+$ vprimer -c ini_yam_exam15.ini -t 2
+
+If you can use more cpu, for example 10, it take only about 2 minutes.
+$ vprimer -c ini_yam_exam15.ini -t 10
 ~~~
 
 ## Usage

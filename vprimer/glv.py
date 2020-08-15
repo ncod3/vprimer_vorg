@@ -155,7 +155,6 @@ def init(prog_name):
 
     # read ini file into global environment
     conf = conf.read_ini()
-    conf = conf.merge_conf()
 
     # open_log in glv
     param.open_log()

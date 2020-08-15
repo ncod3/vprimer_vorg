@@ -8,17 +8,13 @@ import os
 import errno
 import time
 
-#import logging
-#import vprimer.logging_config
-#log = logging.getLogger(__name__)
-
 # global variables
 import vprimer.glv as glv
 import vprimer.utils as utl
 from vprimer.logging_config import LogConf
 
 #--- read dir and log file set
-glv.init(sys.argv[0])
+glv.init('vprimer')
 log = LogConf.open_log(__name__)
 log.info("logging start {}".format(__name__))
 

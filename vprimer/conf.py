@@ -143,12 +143,11 @@ class Conf(object):
  
                 # adjustment of variable format
                 self._rectify_variable()
-
                 #
                 self._ini_into_variable()
 
                 # several path
-                self._set_paths()
+                self._set_path_and_all_start()
 
                 # thread
                 self._thread_adjusting()
@@ -162,6 +161,12 @@ class Conf(object):
                 # g_members
                 self._get_members()
 
+                # merge
+                self._merge_conf()
+                # log all conf
+                self._print_conf()
+
+
         else:
             print("Not found {}, exit.".format(self.ini_file_path))
             #raise FileNotFoundError(errno.ENOENT,
@@ -170,6 +175,60 @@ class Conf(object):
             sys.exit(1)
 
         return self
+
+
+    def _print_conf(self):
+
+        log.info("")
+        log.info("Adopted configurations:")
+
+        log.info("[global]")
+        log.info("init_version={}".format(self.init_version))
+        log.info("thread={}".format(self.thread))
+        log.info("use_joblib_threading={}".format(self.use_joblib_threading))
+        log.info("parallel={}".format(self.parallel))
+        log.info("ref={}".format(self.ref))
+        log.info("vcf={}".format(self.vcf))
+        log.info("min_indel_len={}".format(self.min_indel_len))
+        log.info("max_indel_len={}".format(self.max_indel_len))
+        log.info("min_product_size={}".format(self.min_product_size))
+        log.info("max_product_size={}".format(self.max_product_size))
+        log.info("ref_dir={}".format(self.ref_dir))
+        log.info("log_dir={}".format(self.log_dir))
+        log.info("out_dir={}".format(self.out_dir))
+        log.info("out_bak_dir={}".format(self.out_bak_dir))
+        log.info("pick_mode={}".format(self.pick_mode))
+        log.info("progress={}".format(self.progress))
+
+        log.info("[vprimer']")
+        log.info("fragment_pad_len={}".format(self.fragment_pad_len))
+
+        log.info("[caps]")
+        log.info("enzyme_files_str={}".format(self.enzyme_files_str))
+
+        log.info("[primer3]")
+        log.info("PRIMER_THERMODYNAMIC_PARAMETERS_PATH={}".format(
+            self.PRIMER_THERMODYNAMIC_PARAMETERS_PATH))
+        log.info("PRIMER_PRODUCT_SIZE_RANGE={}".format(
+            self.PRIMER_PRODUCT_SIZE_RANGE))
+        log.info("PRIMER_NUM_RETURN={}".format(self.PRIMER_NUM_RETURN))
+        log.info("PRIMER_MIN_SIZE={}".format(self.PRIMER_MIN_SIZE))
+        log.info("PRIMER_OPT_SIZE={}".format(self.PRIMER_OPT_SIZE))
+        log.info("PRIMER_MAX_SIZE={}".format(self.PRIMER_MAX_SIZE))
+        log.info("PRIMER_MIN_GC={}".format(self.PRIMER_MIN_GC))
+        log.info("PRIMER_OPT_GC={}".format(self.PRIMER_OPT_GC))
+        log.info("PRIMER_MAX_GC={}".format(self.PRIMER_MAX_GC))
+        log.info("PRIMER_MIN_TM={}".format(self.PRIMER_MIN_TM))
+        log.info("PRIMER_OPT_TM={}".format(self.PRIMER_OPT_TM))
+        log.info("PRIMER_MAX_TM={}".format(self.PRIMER_MAX_TM))
+        log.info("PRIMER_MAX_POLY_X={}".format(self.PRIMER_MAX_POLY_X))
+        log.info("PRIMER_PAIR_MAX_DIFF_TM={}".format(
+            self.PRIMER_PAIR_MAX_DIFF_TM))
+
+        log.info("[blast]")
+        log.info("alternate_distance={}".format(self.alternate_distance))
+        log.info("blast_word_size={}".format(self.blast_word_size))
+        log.info("")
 
 
     def _ini_into_variable(self):
@@ -380,6 +439,8 @@ class Conf(object):
         # sample1   = sample1_sorted.bam
         # sample2   = sample1_sorted.bam
 
+        log.info("[sample_nickname]")
+
         for nickname in self.ini['sample_nickname']:
             basename = self.ini['sample_nickname'][nickname]
 
@@ -387,19 +448,19 @@ class Conf(object):
             self.nickname_to_basename[nickname] = basename
             self.basename_to_nickname[basename] = nickname
 
-            #log.debug("nickname={} => basename={}".format(
-            #    nickname, basename)) 
+            log.info("{} => {}".format(
+                nickname, basename)) 
 
 
-    def merge_conf(self):
+    def _merge_conf(self):
 
         # debug by param
         if glv.param.p.stop != None:
-            glv.conf.stop = str(glv.param.p.stop)
+            glv.conf.stop = glv.param.p.stop
 
         # update by param
         if glv.param.p.thread != None:
-            glv.conf.thread = int(glv.param.p.thread)
+            glv.conf.thread = glv.param.p.thread
             self.use_joblib_threading = 'yes'
             self._thread_adjusting()
 
@@ -407,66 +468,38 @@ class Conf(object):
             self.use_joblib_threading = glv.param.p.joblib_threading
             self._thread_adjusting()
 
-        if glv.param.p.out_dir != None:
-            self.out_dir = str(glv.param.p.out_dir)
-            self._set_paths()
-
         if glv.param.p.ref != None:
-            self.ref = str(glv.param.p.ref)
+            self.ref = glv.param.p.ref
 
         if glv.param.p.vcf != None:
-            self.vcf = str(glv.param.p.vcf)
+            self.vcf = glv.param.p.vcf
 
         if glv.param.p.progress != None:
-            self.progress = str(glv.param.p.progress)
+            self.progress = glv.param.p.progress
 
         # indel_len
         if glv.param.p.min_indel_len != None:
-            self.min_indel_len = int(glv.param.p.min_indel_len)
+            self.min_indel_len = glv.param.p.min_indel_len
 
         if glv.param.p.max_indel_len != None:
-            self.max_indel_len = int(glv.param.p.max_indel_len)
+            self.max_indel_len = glv.param.p.max_indel_len
 
         # product_size
         if glv.param.p.min_product_size != None:
-            self.min_product_size = int(glv.param.p.min_product_size)
+            self.min_product_size = glv.param.p.min_product_size
 
         if glv.param.p.max_product_size != None:
-            self.conf.max_product_size = int(glv.param.p.max_product_size)
+            self.conf.max_product_size = glv.param.p.max_product_size
 
         self.PRIMER_PRODUCT_SIZE_RANGE = "{}-{}".format(
             self.min_product_size, self.max_product_size)
 
-        #log.info("{}".format(glv.param.p))
-
-        self._print_setting()
+        log.info("glv.param.p={}".format(glv.param.p))
 
         return self
 
 
-    def _print_setting(self):
-
-        pass
-        #log.info("{}={}".format('ini_file', self.ini_file))
-        #log.info("{}={}".format('ini_file_path', self.ini_file_path))
-        #log.info("{}={}".format('thread', self.thread))
-        #log.info("{}={}".format('use_joblib_threading', \
-        #    self.use_joblib_threading))
-        #log.info("{}={}".format('parallel', \
-        #    self.parallel))
-        #log.info("{}={}".format('parallel_blast_cnt', \
-        #    self.parallel_blast_cnt))
-        #log.info("{}={}".format('parallele_full_thread', \
-        #    self.parallele_full_thread))
-        #log.info("{}={}".format('blast_num_threads', \
-        #    self.blast_num_threads))
-        #log.info("{}={}".format('blast_word_size', \
-        #    self.blast_word_size))
-        #log.info("{}={}".format('PRIMER_PRODUCT_SIZE_RANGE', \
-        #    self.PRIMER_PRODUCT_SIZE_RANGE))
-
-
-    def _set_paths(self):
+    def _set_path_and_all_start(self):
 
         #---------------------------------------------------
         # out_dir
@@ -494,6 +527,24 @@ class Conf(object):
 
         # log for utils
         utl.start_log()
+
+        # cp ini file to outdir
+        self._copy_ini_file()
+
+    def _copy_ini_file(self):
+
+        # ini file
+        self.ini_file_path
+        # out_dir
+        self.out_dir
+
+        # back up
+        ini_base = os.path.basename(self.ini_file_path)
+        out_dir_ini_file = "{}/{}".format(self.out_dir, ini_base)
+        utl.save_to_tmpfile(out_dir_ini_file)
+
+        cmd = "cp {} {}".format(self.ini_file_path, out_dir_ini_file)
+        utl.try_exec(cmd)
 
 
     def _make_dir_tree(self):
@@ -535,7 +586,8 @@ class Conf(object):
                     'end': int(pos[1]),
                     'reg': self.ini['regions'][rg]}
     
-            #log.info("{}: {}".format(rg, self.regions_dict[rg]))
+            log.info("[regions]")
+            log.info("{}: {}".format(rg, self.regions_dict[rg]))
     
     
     def _get_distinguish_groups(self):
@@ -610,8 +662,11 @@ class Conf(object):
                         'pick_mode': pick_mode}
     
             self.distin_g_list.append(g_dict)
-            #log.info("{}".format(g_dict))
+
     
+        log.info("[groups]")
+        log.info("{}".format(self.distin_g_list))
+
     
     def _get_members(self):
     # group_members =
@@ -659,7 +714,10 @@ class Conf(object):
             #    gmem_list[0],
             #    self.g_members_dict[gmem_list[0]]))
 
-    
+        log.info("[members]")
+        log.info("{}".format(self.g_members_dict))
+
+
     def _rectify_variable(self):
     
         for section in self.ini.sections():
@@ -690,12 +748,11 @@ class Conf(object):
                     # 'TDr1533A_Mal,TDr1543A_Fem,TDr1858C_Fem']
 
                 else:
+                    #val = re.sub(r"\s+", " ", val)
+                    # remove white spaces
                     val = re.sub(r"\s+", "", val)
 
                 # reset
                 self.ini[section][key] = val
-    
-                #log.info("{}:{}={}".format(section, key, val))
-    
-    
-    
+
+

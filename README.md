@@ -78,7 +78,9 @@ $ vprimer -c ini_vprimer_yam_exam15.ini -t 10
 If your ini file has a correct vcf file name, you can confirm the sample name in vcf file.
 This command only print information, don't touch any thing else.
 
+~~~
 (run_vprimer) vprimer -c ini_vprimer_yam_exam15.ini -m
+~~~
 
 ## Note
 

@@ -85,7 +85,7 @@ This command only print information, don't touch any thing else.
 ## Note
 
 ## Authors
-- Satoshi Natsume
+- Satoshi Natsume s-natsume@ibrc.or.jp
 
 See also the list of contributors who participated in this project.
 

@@ -1,4 +1,5 @@
 # Vprimer
+
 vprimer
 
 ## Features
@@ -22,9 +23,20 @@ blastn
 
 ## Installation
 ~~~
+if you have not yet made vprimer environment on conda, you can make it.
 $ conda create -n run_vprimer python=3.7
+$ source activate run_vprimer
+(run_vprimer) pip install git+https://github.com/ncod3/vprimer
+
+
+If you have not yet made vprimer environment on conda, you can make it.
+$ conda create -n run_vprimer python=3.7
+$ source activate run_vprimer
 $ pip install git+https://github.com/ncod3/vprimer
-$ conda install pandas -y
+
+If you want to uninstall vprimer,
+$ pip uninstall vprimer
+
 ~~~
 
 ## Getting Started

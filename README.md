@@ -4,6 +4,13 @@ vprimer
 
 ## Features
 
+Test data can download through git clone
+- https://github.com/ncod3/data_vprimer
+
+You can make vcf using svaba from several bam and reference.
+- https://github.com/ncod3/indelvcf
+ 
+
 ## Contents
 
 ## Requirement

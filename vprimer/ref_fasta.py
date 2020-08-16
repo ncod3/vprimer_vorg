@@ -38,17 +38,6 @@ class RefFasta(object):
 
     def prepare_ref(self):
 
-        # user's fasta: convert relative path to absolute path based on cwd
-        if glv.conf.ref.startswith('/'):
-            # originally absolute path
-            glv.conf.ref_fasta_user = glv.conf.ref
-        else:
-            # cwd + relative path
-            glv.conf.ref_fasta_user = "{}/{}".format(
-                glv.conf.cwd, glv.conf.ref)
-
-        log.info("glv.conf.ref_fasta_user {}".format(glv.conf.ref_fasta_user))
-
         # ref_fasta_user: existence confirmation
         if os.path.isfile(glv.conf.ref_fasta_user):
             log.info("{} found.".format(glv.conf.ref_fasta_user))

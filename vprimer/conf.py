@@ -143,8 +143,15 @@ class Conf(object):
  
                 # adjustment of variable format
                 self._rectify_variable()
-                #
+                # into_variable
                 self._ini_into_variable()
+
+                # if want to know vcf
+                if (glv.param.p.vcf_samples == True):
+                    sample_names = utl.get_vcf_sample_name_list(
+                        self.vcf_file_user)
+                    print('{}\n'.format('\n'.join(sample_names)))
+                    sys.exit(1)
 
                 # several path
                 self._set_path_and_all_start()
@@ -254,8 +261,27 @@ class Conf(object):
 
         self.ref = \
             str(self._set_default(sect, 'ref', ''))
+
+        # user's fasta: convert relative path to absolute path based on cwd
+        if self.ref.startswith('/'):
+            # originally absolute path
+            self.ref_fasta_user = self.ref
+        else:
+            # cwd + relative path
+            self.ref_fasta_user = "{}/{}".format(
+                self.cwd, self.ref)
+
         self.vcf = \
             str(self._set_default(sect, 'vcf', ''))
+
+        # user's vcf: convert relative path to absolute path based on cwd
+        if self.vcf.startswith('/'):
+            # originally absolute path
+            self.vcf_file_user = self.vcf
+        else:
+            # cwd + relative path
+            self.vcf_file_user = "{}/{}".format(
+                self.cwd, self.vcf)
 
         self.min_indel_len = \
             int(self._set_default(sect, 'min_indel_len', 50))
@@ -444,7 +470,7 @@ class Conf(object):
         for nickname in self.ini['sample_nickname']:
             basename = self.ini['sample_nickname'][nickname]
 
-            # fullname will filled in vcf_file _get_sample_name_list
+            # fullname will filled in vcf_file get_sample_name_list
             self.nickname_to_basename[nickname] = basename
             self.basename_to_nickname[basename] = nickname
 

@@ -7,6 +7,7 @@ import glob
 import pandas as pd
 import time
 import datetime
+import vcfpy
 
 import logging
 import logging.config
@@ -118,6 +119,34 @@ def is_my_pick_mode(var_type, pick_mode):
 
     else:
         return False
+
+
+def get_vcf_sample_name_list(vcf_file):
+
+    basename_fullname = list()
+    reader = vcfpy.Reader.from_path(vcf_file)
+    # list to text
+
+    for (sno, sample_fullname) in enumerate(
+        reader.header.samples.names, 1):
+
+        sample_basename = os.path.basename(sample_fullname)
+        basename_fullname.append("{}\t{}\t{}".format(
+            sno, sample_basename, sample_fullname))
+
+        # can't have log yet
+
+        # no  basename            fullname
+        # 1   sample1_sorted.bam  /home/user/sample1_sorted.bam
+        # 2   sample2_sorted.bam  /home/user/sample2_sorted.bam
+
+        #glv.conf.vcf_sample_name[sample_basename] = sample_fullname
+
+        # glv.conf.vcf_sample_name = {
+        #   'sample1_sorted.bam' : '/home/user/sample1_sorted.bam',
+        #   'sample2_sorted.bam' : '/home/user/sample2_sorted.bam' }
+
+    return basename_fullname
 
 
 def check_for_files(filepath):

@@ -29,18 +29,6 @@ class VCFFile(object):
     @classmethod
     def prepare_vcf(cls):
 
-        # user's vcf: convert relative path to absolute path based on cwd
-        if glv.conf.vcf.startswith('/'):
-            # originally absolute path
-            glv.conf.vcf_file_user = glv.conf.vcf
-        else:
-            # cwd + relative path
-            glv.conf.vcf_file_user = "{}/{}".format(
-                glv.conf.cwd,
-                glv.conf.vcf)
-
-        log.info("glv.conf.vcf_file_user {}".format(glv.conf.vcf_file_user))
-
         # vcf_file_user: user asigned vcf in ini file
         if os.path.isfile(glv.conf.vcf_file_user):
             log.info("{} found.".format(glv.conf.vcf_file_user))
@@ -114,46 +102,14 @@ class VCFFile(object):
             log.info("exist sample_name_file {}".format(sample_name_file))
 
         else:
-            sample_names = cls._get_sample_name_list()
+            sample_names = utl.get_vcf_sample_name_list(
+                glv.conf.vcf_file)
             log.info("not exist {}".format(sample_name_file))
 
             with open(sample_name_file, mode='w') as f:
                 # write list
                 f.write("{}\n".format("\n".join(sample_names)))
             cls._read_sample_name_list(sample_name_file)
-
-
-    @classmethod
-    def _get_sample_name_list(cls):
-
-        basename_fullname = list()
-        reader = vcfpy.Reader.from_path(glv.conf.vcf_file)
-        # list to text
-
-        basename_user = os.path.basename(glv.conf.vcf_file_user)
-
-        for (sno, sample_fullname) in enumerate(
-            reader.header.samples.names, 1):
-
-            sample_basename = os.path.basename(sample_fullname)
-            basename_fullname.append("{}\t{}\t{}".format(
-                sno, sample_basename, sample_fullname))
-
-            log.debug("{} {}".format(sample_basename, sample_fullname))
-
-        #log.debug("sample_names {}".format(sample_names))
-        
-        # no  basename            fullname
-        # 1   sample1_sorted.bam  /home/user/sample1_sorted.bam
-        # 2   sample2_sorted.bam  /home/user/sample2_sorted.bam
-
-        #glv.conf.vcf_sample_name[sample_basename] = sample_fullname
-
-        # glv.conf.vcf_sample_name = {
-        #   'sample1_sorted.bam' : '/home/user/sample1_sorted.bam',
-        #   'sample2_sorted.bam' : '/home/user/sample2_sorted.bam' }
-
-        return basename_fullname
 
 
     @classmethod

@@ -56,9 +56,6 @@ SKIP_DIFF_INGROUP = 10
 # formtxt COMMENT
 COMMENT_nop = '-'
 COMMENT_dup = 'dup'
-COMMENT_blast = 'blast'
-COMMENT_AABC = 'AA_BC'
-COMMENT_ABCD = 'AB_CD'
 
 ###########################################
 # diff pattern

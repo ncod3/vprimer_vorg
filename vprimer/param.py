@@ -104,6 +104,11 @@ class Param(object):
                             help=".")
 
 
+        parser.add_argument('-m',
+                            '--vcf_samples',
+                            action='store_true',
+                            help=".")
+
         #---------------------------------------
         parser.add_argument('-n',
                             '--min_indel',

@@ -251,12 +251,6 @@ class FormTxt(object):
         if len(comment_list) != 0:
             comment_list += [self.set_enz_cnt]
 
-#        if self.set_n != 1:
-#            if self.set_n == 2:
-#                comment = glv.COMMENT_AABC + ','
-#            if self.set_n == 4:
-#                comment = glv.COMMENT_ABCD + ','
-
 #        if comment == '':
 #            comment = glv.COMMENT_nop
 

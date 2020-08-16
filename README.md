@@ -18,27 +18,42 @@ Bio
 
 bcftools
 tabix
+primer3
 blastn
 ~~~
 
 ## Installation
 ~~~
 if you have not yet made vprimer environment on conda, you can make it.
+
 $ conda create -n run_vprimer python=3.7
 $ source activate run_vprimer
-$ pip install git+https://github.com/ncod3/vprimer
+$ (run_vprimer) pip install git+https://github.com/ncod3/vprimer
 
-If you want to uninstall vprimer,
-$ pip uninstall vprimer
+We recommend that you start by uninstalling vprimer as it will be updated frequently.
 
+$ (run_vprimer) pip uninstall vprimer
 
-$ conda install -c bioconda primer3 
+Even if vprimer is not installed, the following message will be output.
+WARNING: Skipping vprimer as it is not installed.
+
+$ (run_vprimer) conda install -c anaconda pandas
+$ (run_vprimer) conda install -c bioconda vcfpy
+$ (run_vprimer) conda install -c bioconda pysam 
+$ (run_vprimer) conda install -c anaconda joblib 
+$ (run_vprimer) conda install -c anaconda biopython
+
+$ (run_vprimer) conda install -c bioconda bcftools
+$ (run_vprimer) conda install -c bioconda tabix
+$ (run_vprimer) conda install -c bioconda primer3
+$ (run_vprimer) conda install -c bioconda blast
 
 ~~~
 
 ## Getting Started
 
 ~~~
+Get the sample data.
 
 $ cd (your working directory)
 $ git clone https://github.com/ncod3/data_vprimer

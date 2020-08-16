@@ -464,8 +464,8 @@ class Conf(object):
             self.use_joblib_threading = 'yes'
             self._thread_adjusting()
 
-        if glv.param.p.joblib_threading != None:
-            self.use_joblib_threading = glv.param.p.joblib_threading
+        if glv.param.p.joblib != None:
+            self.use_joblib_threading = glv.param.p.joblib
             self._thread_adjusting()
 
         if glv.param.p.ref != None:
@@ -478,18 +478,18 @@ class Conf(object):
             self.progress = glv.param.p.progress
 
         # indel_len
-        if glv.param.p.min_indel_len != None:
-            self.min_indel_len = glv.param.p.min_indel_len
+        if glv.param.p.min_indel != None:
+            self.min_indel_len = glv.param.p.min_indel
 
-        if glv.param.p.max_indel_len != None:
-            self.max_indel_len = glv.param.p.max_indel_len
+        if glv.param.p.max_indel != None:
+            self.max_indel_len = glv.param.p.max_indel
 
         # product_size
         if glv.param.p.min_product_size != None:
-            self.min_product_size = glv.param.p.min_product_size
+            self.min_product_size = glv.param.p.min_product
 
         if glv.param.p.max_product_size != None:
-            self.conf.max_product_size = glv.param.p.max_product_size
+            self.conf.max_product_size = glv.param.p.max_product
 
         self.PRIMER_PRODUCT_SIZE_RANGE = "{}-{}".format(
             self.min_product_size, self.max_product_size)

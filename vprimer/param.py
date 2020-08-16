@@ -86,7 +86,7 @@ class Param(object):
                             help=".")
 
         parser.add_argument('-j',
-                            '--joblib_threading',
+                            '--joblib',
                             action='store', #required=True,
                             type=str, metavar='',
                             help=".")
@@ -106,25 +106,25 @@ class Param(object):
 
         #---------------------------------------
         parser.add_argument('-n',
-                            '--min_indel_len',
+                            '--min_indel',
                             action='store', #required=True,
                             type=int, metavar='',
                             help=".")
 
         parser.add_argument('-x',
-                            '--max_indel_len',
+                            '--max_indel',
                             action='store', #required=True,
                             type=int, metavar='',
                             help=".")
 
         parser.add_argument('-N',
-                            '--min_product_size',
+                            '--min_product',
                             action='store', #required=True,
                             type=int, metavar='',
                             help=".")
 
         parser.add_argument('-X',
-                            '--max_product_size',
+                            '--max_product',
                             action='store', #required=True,
                             type=int, metavar='',
                             help=".")

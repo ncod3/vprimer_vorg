@@ -485,10 +485,10 @@ class Conf(object):
             self.max_indel_len = glv.param.p.max_indel
 
         # product_size
-        if glv.param.p.min_product_size != None:
+        if glv.param.p.min_product != None:
             self.min_product_size = glv.param.p.min_product
 
-        if glv.param.p.max_product_size != None:
+        if glv.param.p.max_product != None:
             self.conf.max_product_size = glv.param.p.max_product
 
         self.PRIMER_PRODUCT_SIZE_RANGE = "{}-{}".format(

@@ -186,9 +186,12 @@ class InoutPrimer3(object):
         #header += ['PRIMER_FIRST_BASE_INDEX=0']
         p3_header_list += ["{}={}".format('PRIMER_FIRST_BASE_INDEX', 1)]
 
-        p3_header_list += ["{}={}".format(
-            'PRIMER_THERMODYNAMIC_PARAMETERS_PATH',
-            glv.conf.PRIMER_THERMODYNAMIC_PARAMETERS_PATH)]
+        # by user's configuration
+        if glv.conf.PRIMER_THERMODYNAMIC_PARAMETERS_PATH != '':
+            p3_header_list += ["{}={}".format(
+                'PRIMER_THERMODYNAMIC_PARAMETERS_PATH',
+                glv.conf.PRIMER_THERMODYNAMIC_PARAMETERS_PATH)]
+
         p3_header_list += ["{}={}".format('PRIMER_PRODUCT_SIZE_RANGE',
             glv.conf.PRIMER_PRODUCT_SIZE_RANGE)]
         p3_header_list += ["{}={}".format('PRIMER_NUM_RETURN',

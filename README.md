@@ -31,11 +31,19 @@ $ pip install git+https://github.com/ncod3/vprimer
 If you want to uninstall vprimer,
 $ pip uninstall vprimer
 
+
+$ conda install -c bioconda primer3 
+
 ~~~
 
 ## Getting Started
 
 ~~~
+
+$ cd (your working directory)
+$ git clone https://github.com/ncod3/data_vprimer
+$ mv data_vprimer/ini* .
+
 If you use minimum cpu 2, it will take only about 5 minutes.
 $ vprimer -c ini_vprimer_yam_exam15.ini -t 2
 

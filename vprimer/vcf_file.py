@@ -75,11 +75,16 @@ class VCFFile(object):
         # we will not worry, continue
 
             err_str = utl.try_exec_error(cmd1)
-            if err_str == '' or \
-                err_str.startswith('No matching tag in'):
-                log.error("we will go ahead if bcftools says, {}.".format(
+
+            if err_str == '':
+                pass
+
+            elif err_str.startswith('No matching tag in'):
+
+                log.error("we will go ahead if bcftools says, >{}<.".format(
                     err_str))
 
+                log.debug("rm glv.conf.vcf_file={}".format(glv.conf.vcf_file))
                 os.remove(glv.conf.vcf_file)
 
                 os.symlink(glv.conf.vcf_file_slink_system, glv.conf.vcf_file)
@@ -87,7 +92,7 @@ class VCFFile(object):
                     glv.conf.vcf_file_slink_system, glv.conf.vcf_file))
 
             else:
-                log.error("{}.".format(err_str))
+                log.error(">{}<".format(err_str))
                 sys.exit(1)
 
             # make tbi

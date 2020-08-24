@@ -130,6 +130,7 @@ class Variant(object):
 
                 sample0 = tsl[gr_no]
                 sample1 = sample_name
+
                 # もし、サンプル間でvariantが見つかった場合は、
                 s0_0, s0_1, s1_0, s1_1 = \
                     AlleleSelect.record_call_for_sample(

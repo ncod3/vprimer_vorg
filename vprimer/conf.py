@@ -716,7 +716,10 @@ class Conf(object):
 
         group_line = re.sub(r"^;", "", group_line)
         group_line = re.sub(r",+", ",", group_line)
-        #log.info("{}".format(group_line))
+        group_line = re.sub(r",;", ";", group_line)
+        group_line = re.sub(r",$", "", group_line)
+
+        log.info("{}".format(group_line))
 
         g_members = group_line.split(';')
         #log.info("g_members {}".format(g_members))

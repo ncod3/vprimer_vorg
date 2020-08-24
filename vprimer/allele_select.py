@@ -379,6 +379,9 @@ class AlleleSelect(object):
         sample0 = self.top_smpl_list[0]
         sample1 = self.top_smpl_list[1]
 
+        #log.debug("sample0={}".format(sample0))
+        #log.debug("sample1={}".format(sample1))
+
         # get ano from record by sample name
         self.g0x0, self.g0x1, self.g1x0, self.g1x1 = \
             AlleleSelect.record_call_for_sample(record, sample0, sample1)
@@ -391,6 +394,9 @@ class AlleleSelect(object):
 
         fullname0 = cls._get_sample_fullname(sample0)
         fullname1 = cls._get_sample_fullname(sample1)
+
+        #log.info("sample0={}, fullname0={}".format(sample0, fullname0))
+        #log.info("sample1={}, fullname1={}".format(sample1, fullname1))
 
         # for REF 20200708
         if sample0 == 'REF':

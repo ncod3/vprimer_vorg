@@ -8,11 +8,13 @@ import time
 # global configuration
 import vprimer.glv as glv
 
+
 import argparse
 from multiprocessing import Pool
 import multiprocessing as multi
 from vprimer.__init__ import __version__
 from vprimer.logging_config import LogConf
+
 
 
 class Param(object):

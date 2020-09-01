@@ -395,6 +395,24 @@ class AlleleSelect(object):
         fullname0 = cls._get_sample_fullname(sample0)
         fullname1 = cls._get_sample_fullname(sample1)
 
+        #log.debug("CHROM={}, POS={}, ALT={}".format(
+        #    record.CHROM, record.POS, record.ALT))
+        #log.debug("sample0={}, gt_alleles {}".format(
+        #    sample0,
+        #    record.call_for_sample[fullname0].gt_alleles[0]))
+        #log.debug("sample1={}, gt_alleles {}".format(
+        #    sample1,
+        #    record.call_for_sample[fullname1].gt_alleles[0]))
+
+        #log.debug("plodity={}, is_variant={}, is_phased={}".format(
+        #    record.call_for_sample[fullname1].plodity,
+        #    record.call_for_sample[fullname1].is_variant,
+        #    record.call_for_sample[fullname1].is_phased))
+        #log.debug("is_het={}, gt_type={}".format(
+        #    record.call_for_sample[fullname1].is_het,
+        #    record.call_for_sample[fullname1].gt_type))
+            # HOM_REF, HOM_ALT, and HET
+
         #log.info("sample0={}, fullname0={}".format(sample0, fullname0))
         #log.info("sample1={}, fullname1={}".format(sample1, fullname1))
 
@@ -403,19 +421,32 @@ class AlleleSelect(object):
             s0_0 = 0
             s0_1 = 0
             s1_0 = record.call_for_sample[fullname1].gt_alleles[0]
-            s1_1 = record.call_for_sample[fullname1].gt_alleles[1]
+            if s1_0 == None:
+                s1_1 = None
+            else:
+                s1_1 = record.call_for_sample[fullname1].gt_alleles[1]
 
         elif sample1 == 'REF':
             s0_0 = record.call_for_sample[fullname0].gt_alleles[0]
-            s0_1 = record.call_for_sample[fullname0].gt_alleles[1]
+            if s0_0 == None:
+                s0_1 = None
+            else:
+                s0_1 = record.call_for_sample[fullname0].gt_alleles[1]
             s1_0 = 0
             s1_1 = 0
 
         else:
             s0_0 = record.call_for_sample[fullname0].gt_alleles[0]
-            s0_1 = record.call_for_sample[fullname0].gt_alleles[1]
+            if s0_0 == None:
+                s0_1 = None
+            else:
+                s0_1 = record.call_for_sample[fullname0].gt_alleles[1]
+
             s1_0 = record.call_for_sample[fullname1].gt_alleles[0]
-            s1_1 = record.call_for_sample[fullname1].gt_alleles[1]
+            if s1_0 == None:
+                s1_1 = None
+            else:
+                s1_1 = record.call_for_sample[fullname1].gt_alleles[1]
 
         # int
         return s0_0, s0_1, s1_0, s1_1

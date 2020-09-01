@@ -14,6 +14,7 @@ import logging.config
 import vprimer.glv as glv
 import vprimer.utils as utl
 
+
 class LogConf(object):
 
     def __init__(self):

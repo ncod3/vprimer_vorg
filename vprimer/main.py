@@ -13,6 +13,7 @@ import vprimer.glv as glv
 import vprimer.utils as utl
 from vprimer.logging_config import LogConf
 
+
 #--- read dir and log file set
 glv.init('vprimer')
 log = LogConf.open_log(__name__)

@@ -48,28 +48,33 @@ class Variant(object):
                 continue
 
             else:
-                log.info("Start processing {}".format('variant'))
                 # iterate vcf, using samtools library vcfpy
-                self._iterate_vcf(vcf_ittr, distin_dict, reg)
+                self._iterate_vcf(vcf_ittr, distin_dict)
 
 
-    def _iterate_vcf(self, vcf_ittr, distin_dict, reg):
+    def _iterate_vcf(self, vcf_ittr, distin_dict):
         """
         """
 
-        pick_mode = distin_dict['pick_mode']
-        # 辞書のキーが0。名前の文字列を示している。
         gr_list = [distin_dict[0], distin_dict[1]]
-        log.info("gr_list {}.".format(gr_list))
-
+        reg = distin_dict['region']
+        reg_dict = glv.conf.regions_dict[reg]
+        pick_mode = distin_dict['pick_mode']
         # At first, we check difference of genotype between two sample
         # that described at the beginning of each group
         top_smpl_list = [
             glv.conf.g_members_dict[gr_list[0]][0],
             glv.conf.g_members_dict[gr_list[1]][0]]
-        log.info("top_smpl_list {}.".format(top_smpl_list))
 
         # ================================================================
+        log.info("")
+        log.info("Start processing {}".format('variant'))
+        log.info("gr_list    = {}".format(gr_list))
+        log.info("top_sample = {}".format(top_smpl_list))
+        log.info("region     = {} ({})".format(reg, reg_dict))
+        log.info("pick_mode  = {}".format(pick_mode))
+        log.info("")
+
         start = time.time()
         # write out to file
         out_txt_file = distin_dict['variant']['out_path']
@@ -168,11 +173,16 @@ class Variant(object):
         sample0 = tsl[0]
         sample1 = tsl[1]
 
-
         s0_0, s0_1, s1_0, s1_1 = \
             AlleleSelect.record_call_for_sample(record, sample0, sample1)
 
         skip = glv.SKIP_DONT_SKIP
+
+        # ./. only 0
+        if Variant.is_None(s0_0, s0_1, s1_0, s1_1):
+            skip = glv.SKIP_None
+            #log.debug("SKIP_None {}{}/{}{}".format(s0_0,s0_1,s1_0,s1_1))
+            return skip
 
         # same homo: AA,AA
         if Variant.is_same_homo(s0_0, s0_1, s1_0, s1_1):
@@ -185,12 +195,6 @@ class Variant(object):
             skip = glv.SKIP_SAME_HETERO
             #log.debug("SKIP_SAME_HETERO {}{}/{}{}".format(
             #    s0_0,s0_1,s1_0,s1_1))
-            return skip
-
-        # ./.
-        if Variant.is_None(s0_0, s0_1, s1_0, s1_1):
-            skip = glv.SKIP_None
-            #log.debug("SKIP_None {}{}/{}{}".format(s0_0,s0_1,s1_0,s1_1))
             return skip
 
         return skip

@@ -23,6 +23,7 @@ pysam
 joblib
 Bio
 
+samtools
 bcftools
 tabix
 primer3

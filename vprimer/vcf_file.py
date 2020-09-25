@@ -46,13 +46,12 @@ class VCFFile(object):
         #log.debug("glv.conf.out_bak_dir={}".format(glv.conf.out_bak_dir))
         #log.debug("glv.conf.log_dir={}".format(glv.conf.log_dir))
 
-        # symlink glv.conf.vcf_file_user to glv.conf.vcf_file
+        # symbolic link glv.conf.vcf_file_user to glv.conf.vcf_file
         if os.path.isfile(glv.conf.vcf_file_slink_system):
             log.info("{} exist.".format(glv.conf.vcf_file_slink_system))
         else:
-            os.symlink(glv.conf.vcf_file_user, glv.conf.vcf_file_slink_system)
-            log.info("os.symlink {} {}.".format(
-                glv.conf.vcf_file_user, glv.conf.vcf_file_slink_system))
+            utl.ln_s(
+                glv.conf.vcf_file_user, glv.conf.vcf_file_slink_system)
 
         # gtonly.gz
         glv.conf.vcf_file = re.sub(
@@ -84,12 +83,10 @@ class VCFFile(object):
                 log.error("we will go ahead if bcftools says, >{}<.".format(
                     err_str))
 
-                log.debug("rm glv.conf.vcf_file={}".format(glv.conf.vcf_file))
-                os.remove(glv.conf.vcf_file)
+                utl.rm_f(glv.conf.vcf_file)
 
-                os.symlink(glv.conf.vcf_file_slink_system, glv.conf.vcf_file)
-                log.info("os.symlink {} {}.".format(
-                    glv.conf.vcf_file_slink_system, glv.conf.vcf_file))
+                utl.ln_s(
+                    glv.conf.vcf_file_slink_system, glv.conf.vcf_file)
 
             else:
                 log.error(">{}<".format(err_str))

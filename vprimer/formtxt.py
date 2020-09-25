@@ -277,8 +277,8 @@ class FormTxt(object):
 
         line_list += [comment]
 
-        line_list += [self.var_type]
         line_list += [self.gts_segr_lens]
+        line_list += [self.var_type]
         line_list += [enzyme]
 
         line_list += [self.g0_name]

@@ -49,7 +49,7 @@ def save_to_tmpfile(file_path, can_log = True):
         ts = time.time()
         new_file_path = "{}.{}.bak".format(file_bak_path, ts)
 
-        os.rename(file_path, new_file_path)
+        mv_f(file_path, new_file_path)
 
         if can_log:
             log.info("{} exist. mv to {}".format(
@@ -251,6 +251,50 @@ def try_exec(cmd):
         log.error("{}.".format(e.stderr))
         sys.exit(1)
 
+def try_exec_nolog(cmd):
+
+    try:
+        #log.info("do {}".format(cmd))
+
+        sbp.run(cmd,
+            stdout=PIPE,
+            stderr=PIPE,
+            text=True,
+            shell=True,
+            check=True)
+
+    except sbp.CalledProcessError as e:
+        #log.error("{}.".format(e.stderr))
+        sys.exit(1)
+
+
+def ln_s(source_file, symbolic_link_file):
+
+    cmd1 = "{} {} {}".format(
+        'ln -s', source_file, symbolic_link_file)
+    try_exec(cmd1)
+
+
+def rm_f(remove_file):
+
+    cmd1 = "{} {}".format(
+        'rm -f', remove_file)
+    try_exec(cmd1)
+
+
+def makedirs(dir_name):
+
+    cmd1 = "{} {}".format(
+        'mkdir -p', dir_name)
+    try_exec_nolog(cmd1)
+
+
+def mv_f(source_file, renamed_file):
+
+    cmd1 = "{} {} {}".format(
+        'mv', source_file, renamed_file)
+    try_exec_nolog(cmd1)
+
 
 def tabix(vcf_file):
 
@@ -295,9 +339,7 @@ def sort_file(
     try_exec(cmd_sort)
 
     # rm file
-    log.info("remove {}".format(out_txt_file))
-    os.remove(out_txt_file)
-
+    rm_f(out_txt_file)
 
     # make header.txt
     out_txt_header = "{}.header_txt".format(out_txt_file)
@@ -314,8 +356,8 @@ def sort_file(
     try_exec(cmd_cat)
 
     # rm header sorted
-    os.remove(out_txt_header)
-    os.remove(sorted_file)
+    rm_f(out_txt_header)
+    rm_f(sorted_file)
 
 
 

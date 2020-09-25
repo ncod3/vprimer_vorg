@@ -77,18 +77,18 @@ class Enzyme(object):
 
             # slink
             basename_user = os.path.basename(enzyme_file_user)
-            enzyme_file_slink_system = "{}/{}".format(
-                glv.conf.ref_dir, basename_user)
+            enzyme_file_slink_system = "{}/{}{}".format(
+                glv.conf.ref_dir, basename_user, '.org_slink')
             # save as conf global
             glv.conf.enzyme_files_list.append(enzyme_file_slink_system)
 
+            # not exist link file
+            # exist link file, exist actual file
+            # exist link file, not exist actual file
             if os.path.isfile(enzyme_file_slink_system):
                 log.info("{} exist.".format(enzyme_file_slink_system))
             else:
-                log.info("os.symlink {} {}.".format(
-                    enzyme_file, enzyme_file_slink_system))
-
-                os.symlink(enzyme_file, enzyme_file_slink_system)
+                utl.ln_s(enzyme_file, enzyme_file_slink_system)
 
         log.info("enzyme_files {}".format(glv.conf.enzyme_files_list))
 

@@ -584,7 +584,7 @@ class Conf(object):
         ]
 
         for dir in dirs:
-            os.makedirs(dir, exist_ok=True) # refs
+            utl.makedirs(dir)
 
     
     def _get_regions(self):

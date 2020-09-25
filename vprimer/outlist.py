@@ -263,8 +263,8 @@ class OutList(object):
             hd_l, hd_d, i = self._mkmap('complete',         hd_l, hd_d, i)
             hd_l, hd_d, i = self._mkmap('comment',          hd_l, hd_d, i)
 
-            hd_l, hd_d, i = self._mkmap('var_type',         hd_l, hd_d, i)
             hd_l, hd_d, i = self._mkmap('gts_segr_lens',    hd_l, hd_d, i)
+            hd_l, hd_d, i = self._mkmap('var_type',         hd_l, hd_d, i)
 
             hd_l, hd_d, i = self._mkmap('enzyme',           hd_l, hd_d, i)
 

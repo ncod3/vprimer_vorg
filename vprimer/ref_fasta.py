@@ -54,7 +54,7 @@ class RefFasta(object):
         ext = root_ext_pair[1]
 
         # ref_fasta_slink_system
-        # make symlink user's fasta to sys_ref_dir as .org(.gz)
+        # symbolic link user's fasta to sys_ref_dir as .org(.gz)
         if ext == '.gz':
             glv.conf.ref_fasta_slink_system = "{}/{}{}".format(
                 glv.conf.ref_dir, basename_user, '.org_slink.gz')
@@ -76,9 +76,7 @@ class RefFasta(object):
         if os.path.isfile(glv.conf.ref_fasta_slink_system):
             log.info("{} exist.".format(glv.conf.ref_fasta_slink_system))
         else:
-            log.info("os.symlink {} {}.".format(
-                glv.conf.ref_fasta_user, glv.conf.ref_fasta_slink_system))
-            os.symlink(
+            utl.ln_s(
                 glv.conf.ref_fasta_user, glv.conf.ref_fasta_slink_system)
 
         log.info("ext ({}).".format(ext))

@@ -30,7 +30,7 @@ def start_log():
     log.info("logging start {}".format(__name__))
 
 
-def save_to_tmpfile(file_path, can_log = True):
+def save_to_tmpfile(file_path, can_log=True):
     """
     """
 
@@ -235,10 +235,13 @@ def try_exec_error(cmd):
     return err_str
 
 
-def try_exec(cmd):
+def try_exec(cmd, can_log=True):
 
     try:
-        log.info("do {}".format(cmd))
+        if can_log == True:
+            log.info("do {}".format(cmd))
+        else:
+            print("do {}.".format(cmd), file=sys.stderr)
 
         sbp.run(cmd,
             stdout=PIPE,
@@ -248,23 +251,11 @@ def try_exec(cmd):
             check=True)
 
     except sbp.CalledProcessError as e:
-        log.error("{}.".format(e.stderr))
-        sys.exit(1)
+        if can_log == True:
+            log.error("{}.".format(e.stderr))
+        else:
+            print("{}.".format(e.stderr), file=sys.stderr)
 
-def try_exec_nolog(cmd):
-
-    try:
-        #log.info("do {}".format(cmd))
-
-        sbp.run(cmd,
-            stdout=PIPE,
-            stderr=PIPE,
-            text=True,
-            shell=True,
-            check=True)
-
-    except sbp.CalledProcessError as e:
-        #log.error("{}.".format(e.stderr))
         sys.exit(1)
 
 
@@ -286,14 +277,14 @@ def makedirs(dir_name):
 
     cmd1 = "{} {}".format(
         'mkdir -p', dir_name)
-    try_exec_nolog(cmd1)
+    try_exec(cmd1, False)
 
 
 def mv_f(source_file, renamed_file):
 
     cmd1 = "{} {} {}".format(
         'mv', source_file, renamed_file)
-    try_exec_nolog(cmd1)
+    try_exec(cmd1, False)
 
 
 def tabix(vcf_file):

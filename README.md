@@ -24,7 +24,7 @@ pysam
 joblib
 Bio
 
-samtools
+samtools (1.9<=)
 bcftools
 tabix
 primer3
@@ -52,6 +52,7 @@ $ (run_vprimer) conda install -c bioconda pysam
 $ (run_vprimer) conda install -c anaconda joblib 
 $ (run_vprimer) conda install -c anaconda biopython
 
+$ (run_vprimer) conda install -c bioconda samtools==1.9
 $ (run_vprimer) conda install -c bioconda bcftools
 $ (run_vprimer) conda install -c bioconda tabix
 $ (run_vprimer) conda install -c bioconda primer3

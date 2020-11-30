@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="vprimer",
-    version="0.0.1",
+    version="0.0.3",
     author="satoshi-natsume",
     author_email="s-natsume@ibrc.or.jp",
     description="Vprimer",

@@ -13,7 +13,6 @@ import vprimer.utils as utl
 
 from Bio import Restriction
 from Bio.Seq import Seq
-from Bio.Alphabet.IUPAC import IUPACAmbiguousDNA
 
 from vprimer.product import Product
 
@@ -217,7 +216,9 @@ class EvalVariant(object):
 
         # http://biopython.org/DIST/docs/cookbook/Restriction.html
         # 2.6 Analysing sequences with a RestrictionBatch
-        ar_seq = Seq(seq_target, IUPACAmbiguousDNA())
+        # 20201130
+        #ar_seq = Seq(seq_target, IUPACAmbiguousDNA())
+        ar_seq = Seq(seq_target)
         rb = Restriction.RestrictionBatch(enzyme_list)
         # If linear is False, the restriction sites that span over
         # the boundaries will be included.

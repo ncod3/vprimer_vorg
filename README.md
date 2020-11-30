@@ -16,7 +16,7 @@ You can make vcf using svaba from several bam and reference.
 ## Requirement
 
 ~~~
-python 3.7
+python 3.75
 pandas
 vcfpy
 pysam

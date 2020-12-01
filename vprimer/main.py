@@ -14,7 +14,7 @@ import vprimer.utils as utl
 from vprimer.logging_config import LogConf
 
 
-#--- read dir and log file set
+#--- read conf and param, set out_dir and start log
 glv.init('vprimer')
 log = LogConf.open_log(__name__)
 log.info("logging start {}".format(__name__))

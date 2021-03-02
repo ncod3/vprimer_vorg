@@ -1,6 +1,6 @@
 # Vprimer
 
-vprimer_vorg
+vprimer_vorg 0.03
 
 ## Features
 

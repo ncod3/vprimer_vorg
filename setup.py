@@ -15,7 +15,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     license='GPL',
     entry_points = {
-        'console_scripts': ['vprimer = vprimer.main:main']
+        'console_scripts': ['vprimer_vorg = vprimer.main:main']
     },
     python_requires='>=3.7',
 )
